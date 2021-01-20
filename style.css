@@ -1,5 +1,24 @@
-.center{
 
+form{
+    margin-top: 90px;
+}
+h1{
+    font-family: 'Poiret One', cursive;
+    font-size: 60px;
+    color: rgb(47, 0, 80);
+    margin: 0px;
+
+}
+header{
+    /* background-color: mediumpurple; */
+    
+    padding: 0px 30px 0px 30px;
+    position: fixed;
+    top: 0;
+}
+input{
+    background-color: beige;
+    border: none;
 }
 .container-col{
     display: flex;
@@ -7,23 +26,69 @@
     align-items: center;
     justify-content: space-around;
 }
-.container-row{
-    width: 80vw;
-    min-height: 4em;
+.container-row{  
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* border-bottom: 3px;
-    border-right: 4px; */
-    border-width: 0px 4px 2px 0px;
-    border-color: black;
-    border-style: ridge;
-    border-bottom-right-radius: 10px;
 }
 .inline{
     display: inline;
 }
+.save{
+    background-color: lightseagreen;
+    margin: auto 2px 2px auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-radius: 5px 0px 10px 0px;
+    border-width: 0px 2px 1px 0px;
+}
+.schedule{
+    width: 80vw;
+    min-height: 4em;
+    margin-bottom: 2px;
+    border-width: 0px 5px 2px 0px;
+    border-color: rgb(148, 148, 83);
+    border-style: ridge;
+    border-radius: 5px 0px 10px 0px;
+    background-color: beige;
+}
+.window{
+    margin: 10px;
+    font-family: 'Orbitron', sans-serif;
+    color: rgb(148, 148, 83);
+}
 .wrapper{
-    height: 100vh;
+    min-height: 100%;
+}
+#date{
+    font-family: 'Orbitron', sans-serif;
+    color: lightseagreen;
+}
+#next{
+    background-color: lightseagreen;
+    border-radius: 2px 0px 5px 0px;
+    border-width: 0px;
+}
+#prev{
+    background-color: lightseagreen;
+    border-radius: 0px 2px 0px 5px;
+    border-width: 0px;
+}
+#selectDay{
+    width: 40vw;
+    height: 2em;
+}
+#time{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: lightseagreen;
+    margin: 0px 10px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 3px;
+    background-color: black;
 }
