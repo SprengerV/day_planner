@@ -1,0 +1,29 @@
+.center{
+
+}
+.container-col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.container-row{
+    width: 80vw;
+    min-height: 4em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 3px;
+    border-right: 4px; */
+    border-width: 0px 4px 2px 0px;
+    border-color: black;
+    border-style: ridge;
+    border-bottom-right-radius: 10px;
+}
+.inline{
+    display: inline;
+}
+.wrapper{
+    height: 100vh;
+}
