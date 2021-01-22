@@ -22,68 +22,68 @@
                 <button id='next' class='inline'>&gt;</button>  
             </div>
         </header>
-        <form>
-            <div class='container-row schedule'>
+        <main>
+            <form id='7' class='container-row schedule'>
                 <span class='window'>7:00 <br>- 7:59</span>
-                <input id='7' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule'>
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='8' class='container-row schedule'>
                 <span class='window'>8:00 <br>- 8:59</span>
-                <input id='8' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule'>
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='9' class='container-row schedule'>
                 <span class='window'>9:00 <br>- 9:59</span>
-                <input id='9' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='10' class='container-row schedule'>
                 <span class='window'>10:00 <br>- 10:59</span>
-                <input id='10' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='11' class='container-row schedule'>
                 <span class='window'>11:00 <br>- 11:59</span>
-                <input id='11' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='12' class='container-row schedule'>
                 <span class='window'>12:00 <br>- 12:59</span>
-                <input id='12' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='13' class='container-row schedule'>
                 <span class='window'>1:00 <br>- 1:59</span>
-                <input id='13' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='14' class='container-row schedule'>
                 <span class='window'>2:00 <br>- 2:59</span>
-                <input id='14' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='15' class='container-row schedule'>
                 <span class='window'>3:00 <br>- 3:59</span>
-                <input id='15' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='16' class='container-row schedule'>
                 <span class='window'>4:00 <br>- 4:59</span>
-                <input id='16' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='17' class='container-row schedule'>
                 <span class='window'>5:00 <br>- 5:59</span>
-                <input id='17' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-            <div class='container-row schedule' >
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+            <form id='18' class='container-row schedule'>
                 <span class='window'>6:00 <br>- 6:59</span>
-                <input id='18' value='test'></input>
-                <button class='save' disabled>SAVE</button>
-            </div>
-        </form>
+                <input type='text' value='test'></input>
+                <button class='save' type='submit' disabled>SAVE</button>
+            </form>
+        </main>
     </div>
     
     <script type='text/javascript'>
@@ -92,23 +92,46 @@
             // push date to page
             $('#date').text(today.format('ddd MMM D, YYYY'));
             // retrieve object named by the unix format of the date
-            const saved = JSON.parse(localStorage.getItem(today.unix()));
-            if(saved){
-                // const punches = Object.keys(saved);
+            let saved = JSON.parse(localStorage.getItem(today.format('MMM D, YYYY')));
+            console.log(saved);
+            for(i=7;i<19;i++){
+                    $('#'+i).children('input').attr('value','');
+            };
+            if(saved != null){
+                // for each key in that data set the value attribute of the corresponding element to that key's value
                 for(var key in saved){
-                    // const key = punches[i];
-                    $('#'+key).attr('value',saved.key);
-                }
-            } else {
-                for(i=7;i<19;i++){
-                    $('#'+i).attr('value','');
-                }
-            }
+                    $('#'+key).children('input').attr('value',saved[key]);
+                };
+            };
+            $('input').click(function(event) {
+                const saveBtn = $(this).siblings('.save');
+                saveBtn.prop('disabled',false);
+                $('form').submit(function(event){
+                    event.preventDefault();
+                    let slot = $(this).attr('id');
+                    console.log(slot);
+                    const data = $(this).children('input').val();
+                    let obj = JSON.parse(localStorage.getItem(today.format('MMM D, YYYY')));
+                    if(obj != null){
+                        obj[slot] = data;
+                    } else {
+                        obj = {};
+                        obj[slot] = data;  
+                    };
+                    localStorage.setItem(today.format('MMM D, YYYY'),JSON.stringify(obj));
+                    saveBtn.prop('disabled',true); 
+                });
+            });
+            
+        };
+        // save user input
+        function save(data){
+
         };
         // everything starts on page load
-        $(document).ready(function() {
+        $(document).ready(() => {
             // clock, checks for time and pushes it to page every second
-            let time
+            let time;
             setInterval(function(){
                 time = dayjs().format('h:mm A');
                 $('#time').text(time);
@@ -120,12 +143,12 @@
             $('#prev').click(() => {
                 today = today.subtract(1, 'day');
                 showD(today);
-            })
+            });
             // increments the current day then displays that data
             $('#next').click(() => {
                 today = today.add(1, 'day');
                 showD(today);
-            })
+            });
 
         });     
     </script>
