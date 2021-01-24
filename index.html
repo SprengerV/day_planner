@@ -23,17 +23,17 @@
             </div>
         </header>
         <main>
-            <form id='7' class='container-row schedule urgent'>
+            <form id='7' class='container-row schedule'>
                 <span class='window'>7:00 <br>- 7:59</span>
                 <input class='normal' type='text' value='test'></input>
                 <button class='save' type='submit' disabled>SAVE</button>
             </form>
-            <form id='8' class='container-row schedule current'>
+            <form id='8' class='container-row schedule'>
                 <span class='window'>8:00 <br>- 8:59</span>
                 <input class='normal' type='text' value='test'></input>
                 <button class='save' type='submit' disabled>SAVE</button>
             </form>
-            <form id='9' class='container-row schedule past'>
+            <form id='9' class='container-row schedule'>
                 <span class='window'>9:00 <br>- 9:59</span>
                 <input class='normal' type='text' value='test'></input>
                 <button class='save' type='submit' disabled>SAVE</button>
@@ -90,44 +90,65 @@
         // display data corresponding to a given dayjs object
         function showD(today){
             // push date to page
-            $('#date').text(today.format('ddd MMM D, YYYY'));
+            $('#date').text(today);
             // retrieve object named by the unix format of the date
-            let saved = JSON.parse(localStorage.getItem(today.format('MMM D, YYYY')));
+            let saved = JSON.parse(localStorage.getItem(today));
             console.log(saved);
+            const hour = parseInt(dayjs().format('H'));            
+            // set all of the boxes to empty with base styling classes
             for(i=7;i<19;i++){
                     $('#'+i).children('input').attr('value','');
+                    $('#'+i).attr('class','container-row schedule')
             };
             if(saved != null){
                 // for each key in that data set the value attribute of the corresponding element to that key's value
                 for(var key in saved){
                     $('#'+key).children('input').attr('value',saved[key]);
+                    // if item time is less than current time, add past class
+                    if(key < hour){
+                        $('#'+key).addClass('past');
+                    // if item time is equal to current time, add current class
+                    }else if(key = hour){
+                        $('#'+key).addClass('current');
+                    // otherwise add urgent class
+                    }else{
+                        $('#'+key).addClass('urgent');
+                    };
                 };
+                
             };
+            colorize();
+            // upon clicking on an input field
             $('input').click(function(event) {
+                // corresponding save button activates
                 const saveBtn = $(this).siblings('.save');
                 saveBtn.prop('disabled',false);
+                // upon clicking save or hitting enter
                 $('form').submit(function(event){
                     event.preventDefault();
                     let slot = $(this).attr('id');
-                    console.log(slot);
                     const data = $(this).children('input').val();
-                    let obj = JSON.parse(localStorage.getItem(today.format('MMM D, YYYY')));
+                    // retrieves saved data
+                    let obj = JSON.parse(localStorage.getItem(today));
+                    // if there is saved data, saves this input to corresponding key, if not, creates the object first
                     if(obj != null){
                         obj[slot] = data;
                     } else {
                         obj = {};
                         obj[slot] = data;  
                     };
-                    localStorage.setItem(today.format('MMM D, YYYY'),JSON.stringify(obj));
+                    // saves (modified) obj to local storage
+                    localStorage.setItem(today,JSON.stringify(obj));
+                    // disables save button
                     saveBtn.prop('disabled',true); 
+                    showD(today);
                 });
             });
             
         };
-        // save user input
-        function save(data){
-
-        };
+        // color codes boxes by time
+        colorize = () => {
+        }
         // everything starts on page load
         $(document).ready(() => {
             // clock, checks for time and pushes it to page every second
@@ -137,7 +158,7 @@
                 $('#time').text(time);
             }, 1000);
             // call dayjs then display the corresponding data
-            let today = dayjs();
+            let today = dayjs().format('MMM D, YYYY');
             showD(today);
             // decrements current day then displays that data
             $('#prev').click(() => {
