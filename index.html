@@ -14,15 +14,26 @@
 <body>
     <div class='container-col wrapper'>
         <aside id='time'></aside>
+        
         <header class='container-col'>
             <h1 class=>Today's Schedule</h1>
             <div id='selectDay' class='container-row'>
                 <button id='prev' class='inline'>&lt;</button>
                 <h3 id='date' class='inline'>Today's Date</h3>
                 <button id='next' class='inline'>&gt;</button>  
+                <aside class='inline'>
+                    <ul id='colorkey' class='container-row'>
+                        <li id='u'>UPCOMING</li>
+                        <li id='c'>CURRENT</li>
+                        <li id='p'>PAST</li>
+                    </ul>
+                </aside>
             </div>
+
         </header>
+        
         <main>
+            
             <form id='7' class='container-row schedule'>
                 <span class='window'>7:00 <br>- 7:59</span>
                 <input class='normal' type='text' value='test'></input>
@@ -105,19 +116,21 @@
                 for(var key in saved){
                     $('#'+key).children('input').attr('value',saved[key]);
                     // if item time is less than current time, add past class
-                    if(key < hour){
-                        $('#'+key).addClass('past');
-                    // if item time is equal to current time, add current class
-                    }else if(key = hour){
-                        $('#'+key).addClass('current');
-                    // otherwise add urgent class
-                    }else{
-                        $('#'+key).addClass('urgent');
+                    console.log(saved.key);
+                    if(saved.key){
+                        if(key < hour){
+                            $('#'+key).addClass('past');
+                        // if item time is equal to current time, add current class
+                        }else if(key = hour){
+                            $('#'+key).addClass('current');
+                        // otherwise add urgent class
+                        }else{
+                            $('#'+key).addClass('urgent');
+                        };
                     };
                 };
                 
             };
-            colorize();
             // upon clicking on an input field
             $('input').click(function(event) {
                 // corresponding save button activates
@@ -143,12 +156,8 @@
                     saveBtn.prop('disabled',true); 
                     showD(today);
                 });
-            });
-            
+            });  
         };
-        // color codes boxes by time
-        colorize = () => {
-        }
         // everything starts on page load
         $(document).ready(() => {
             // clock, checks for time and pushes it to page every second
@@ -162,12 +171,12 @@
             showD(today);
             // decrements current day then displays that data
             $('#prev').click(() => {
-                today = today.subtract(1, 'day');
+                today = dayjs().subtract(1, 'day').format('MMM D, YYYY');
                 showD(today);
             });
             // increments the current day then displays that data
             $('#next').click(() => {
-                today = today.add(1, 'day');
+                today = dayjs().add(1, 'day').format('MMM D, YYYY');
                 showD(today);
             });
 
